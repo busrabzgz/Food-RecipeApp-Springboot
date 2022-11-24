@@ -1,6 +1,7 @@
 package com.example.yemekTarifi.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,9 +33,10 @@ public class Food {
     @Column(name = "type_of_meal")
     private String typeOfMeal;
 
-    @OneToMany(mappedBy = "food")
+    @OneToMany(mappedBy = "food")// lazy
 
     private List<Product> products;
+
 
 
 

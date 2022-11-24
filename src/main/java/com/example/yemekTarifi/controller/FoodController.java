@@ -5,10 +5,15 @@ import com.example.yemekTarifi.entity.Food;
 import com.example.yemekTarifi.service.FoodService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import reactor.core.publisher.Flux;
 
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequestMapping("/api/food")
@@ -40,10 +45,29 @@ public class FoodController {
         foodService.deleteRecipeById(id);
     }
 
-    @CrossOrigin
-    public SseEmitter subscribe(){
 
+    /**
+     * Burada server sent event yapmaya çalıştık
+     * @return
+     */
+    @GetMapping("/flux")
+    public Flux<ServerSentEvent<Integer>> getUsers() {
+
+        AtomicInteger integer = new AtomicInteger(0);
+        ArrayList<Integer> data = new ArrayList();
+
+        return Flux
+                .interval(Duration.ofSeconds(1))
+                .map(sequence -> {
+                    data.add(integer.getAndIncrement());
+                    return ServerSentEvent.<Integer>builder()
+                            .id(String.valueOf(sequence))
+                            .event("user-list-event")
+                            .data(integer.get())
+                            .build();});
     }
+
+
 
 
 
