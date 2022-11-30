@@ -1,30 +1,28 @@
 package com.example.yemekTarifi.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.swing.text.html.StyleSheet;
 import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name ="food")
-public class Food {
+@Table(name ="recipe")
+public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "food_id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "food_name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "food_description")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "time_required_to_cook")
@@ -33,9 +31,8 @@ public class Food {
     @Column(name = "type_of_meal")
     private String typeOfMeal;
 
-    @OneToMany(mappedBy = "food")// lazy
-
-    private List<Product> products;
+    @OneToMany(fetch = FetchType.LAZY)// lazy
+    private List<Ingredient> ingredients;
 
 
 

@@ -13,22 +13,20 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="products")
-public class Product {
+@Table(name="ingredient")
+public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "producy_id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "product_name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "product_amount")
+    @Column(name = "amount")
     private Double amount;
 
-    @ManyToOne
-    @JoinColumn(name="food_id")
-    private Food food;
+
 
 
 }
