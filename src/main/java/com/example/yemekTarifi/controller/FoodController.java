@@ -2,7 +2,9 @@ package com.example.yemekTarifi.controller;
 
 
 import com.example.yemekTarifi.entity.Food;
+import com.example.yemekTarifi.entity.Product;
 import com.example.yemekTarifi.service.FoodService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.ServerSentEvent;
@@ -18,6 +20,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RestController
 @RequestMapping("/api/food")
 public class FoodController {
+
+    @Autowired
     private final FoodService foodService;
     public FoodController(FoodService foodService){
         this.foodService=foodService;
@@ -31,8 +35,8 @@ public class FoodController {
 
     @PostMapping("/update")
     public ResponseEntity<Food> updateRecipe(@RequestBody Food food){
-        Food updatedRecipe=foodRepository.getById(food.getId());
-        Food updateRecipe=foodService.updateRecipe(updatedRecipe);
+        Food newRecipe = new Food();
+        Food updateRecipe=foodService.updateRecipe(newRecipe);
         return new ResponseEntity<Food>(updateRecipe, HttpStatus.CREATED);
     }
 
