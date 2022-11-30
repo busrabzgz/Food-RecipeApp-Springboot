@@ -23,7 +23,8 @@ public class ProductController {
     }
     @PostMapping("/save")
     public ResponseEntity<Product> addProduct(Product product){
-        Product addProduct=productService.addProduct(product);
+        Product newProduct = new Product();
+        Product addProduct=productService.saveProduct(newProduct);
         return new ResponseEntity<Product>(addProduct, HttpStatus.CREATED);
     }
     @GetMapping("/all")

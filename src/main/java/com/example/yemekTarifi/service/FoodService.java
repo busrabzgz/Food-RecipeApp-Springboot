@@ -20,6 +20,15 @@ public class FoodService {
         return foodRepository.save(food);
     }
 
+    public Food updateRecipe(Food food){
+        Food updatedRecipe=foodRepository.getById(food.getId());
+        updatedRecipe.setName(food.getName());
+        updatedRecipe.setDescription(food.getDescription());
+        updatedRecipe.setTime(food.getTime());
+        updatedRecipe.setTypeOfMeal(food.getTypeOfMeal());
+        return foodRepository.save(updatedRecipe);
+    }
+
     public List<Food> findAllFood(){
         return foodRepository.findAll();
     }

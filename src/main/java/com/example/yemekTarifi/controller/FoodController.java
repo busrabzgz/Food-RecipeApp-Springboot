@@ -29,6 +29,15 @@ public class FoodController {
         return new ResponseEntity<Food>(addRecipe, HttpStatus.CREATED);
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<Food> updateRecipe(@RequestBody Food food){
+        Food updatedRecipe=foodRepository.getById(food.getId());
+        Food updateRecipe=foodService.updateRecipe(updatedRecipe);
+        return new ResponseEntity<Food>(updateRecipe, HttpStatus.CREATED);
+    }
+
+
+
     @GetMapping("/all")
     public ResponseEntity<List<Food>> findAllFood(){
         List<Food> findAllFood = foodService.findAllFood();
