@@ -1,15 +1,13 @@
 package com.example.yemekTarifi.controller;
 
 
-import com.example.yemekTarifi.entity.Food;
-import com.example.yemekTarifi.entity.Product;
-import com.example.yemekTarifi.service.FoodService;
+import com.example.yemekTarifi.entity.Recipe;
+import com.example.yemekTarifi.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
@@ -19,33 +17,32 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequestMapping("/api/food")
-public class FoodController {
+public class RecipeController {
 
     @Autowired
-    private final FoodService foodService;
-    public FoodController(FoodService foodService){
-        this.foodService=foodService;
+    private final RecipeService recipeService;
+    public RecipeController(RecipeService recipeService){
+        this.recipeService = recipeService;
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Food> addRecipe(@RequestBody Food food){
-        Food addRecipe=foodService.addRecipe(food);
-        return new ResponseEntity<Food>(addRecipe, HttpStatus.CREATED);
+    public ResponseEntity<Recipe> addRecipe(@RequestBody Recipe recipe){
+        Recipe addRecipe= recipeService.addRecipe(recipe);
+        return new ResponseEntity<Recipe>(addRecipe, HttpStatus.CREATED);
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<Food> updateRecipe(@RequestBody Food food){
-        Food newRecipe = new Food();
-        Food updateRecipe=foodService.updateRecipe(newRecipe);
-        return new ResponseEntity<Food>(updateRecipe, HttpStatus.CREATED);
+    @PutMapping("/update")
+    public ResponseEntity<Recipe> updateRecipe(@RequestBody Recipe recipe){
+        Recipe updateRecipe= recipeService.updateRecipe(recipe);
+        return new ResponseEntity<Recipe>(updateRecipe, HttpStatus.OK);
     }
 
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<Food>> findAllFood(){
-        List<Food> findAllFood = foodService.findAllFood();
-        return new ResponseEntity<List<Food>>(findAllFood,HttpStatus.OK);
+    public ResponseEntity<List<Recipe>> findAllFood(){
+        List<Recipe> findAllRecipe = recipeService.findAllFood();
+        return new ResponseEntity<List<Recipe>>(findAllRecipe,HttpStatus.OK);
 
     }
 
@@ -55,7 +52,7 @@ public class FoodController {
      */
     @PostMapping("/delete")
     public void deleteRecipeById(Integer id){
-        foodService.deleteRecipeById(id);
+        recipeService.deleteRecipeById(id);
     }
 
 

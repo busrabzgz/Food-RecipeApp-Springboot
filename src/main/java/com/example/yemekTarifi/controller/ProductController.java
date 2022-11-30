@@ -1,9 +1,8 @@
 package com.example.yemekTarifi.controller;
 
 
-import com.example.yemekTarifi.entity.Product;
-import com.example.yemekTarifi.service.ProductService;
-import org.apache.coyote.Response;
+import com.example.yemekTarifi.entity.Ingredient;
+import com.example.yemekTarifi.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.ServletResponseMethodArgumentResolver;
 
 import java.util.List;
 
@@ -19,23 +17,23 @@ import java.util.List;
 @RequestMapping("/api/product")
 public class ProductController {
     @Autowired
-    private final ProductService productService;
-    public ProductController(ProductService productService){
-        this.productService=productService;
+    private final IngredientService ingredientService;
+    public ProductController(IngredientService ingredientService){
+        this.ingredientService = ingredientService;
     }
     @PostMapping("/save")
-    public ResponseEntity<Product> addProduct(Product product){
-        Product newProduct = new Product();
-        Product addProduct=productService.saveProduct(newProduct);
-        return new ResponseEntity<Product>(addProduct, HttpStatus.CREATED);
+    public ResponseEntity<Ingredient> addProduct(Ingredient ingredient){
+        Ingredient newIngredient = new Ingredient();
+        Ingredient addIngredient = ingredientService.saveProduct(newIngredient);
+        return new ResponseEntity<Ingredient>(addIngredient, HttpStatus.OK);
     }
     @GetMapping("/all")
-    public ResponseEntity<List<Product>> findAllProduct(){
-        List<Product>  findAllProduct=productService.findAllProduct();
-        return  new ResponseEntity<List<Product>>(findAllProduct,HttpStatus.OK);
+    public ResponseEntity<List<Ingredient>> findAllProduct(){
+        List<Ingredient> findAllIngredient = ingredientService.findAllProduct();
+        return  new ResponseEntity<List<Ingredient>>(findAllIngredient,HttpStatus.OK);
     }
     @PostMapping("/delete")
     public void deleteProductById(Integer id){
-        productService.deleteProductById(id);
+        ingredientService.deleteProductById(id);
     }
 }
