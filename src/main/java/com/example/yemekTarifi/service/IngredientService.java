@@ -13,16 +13,27 @@ public class IngredientService {
     public IngredientService(IngredientRepository ingredientRepository){
         this.ingredientRepository = ingredientRepository;
     }
-    public Ingredient saveProduct(Ingredient ingredient) {
+
+    public Ingredient addIngredient(Ingredient ingredient){
         return ingredientRepository.save(ingredient);
     }
+    public Ingredient updateIngredient(Ingredient ingredient){
+        Ingredient updatedIngredient= ingredientRepository.getReferenceById((ingredient.getId()));
+        updatedIngredient.setName(ingredient.getName());
+        updatedIngredient.setAmount(ingredient.getAmount());
 
-    public List<Ingredient> findAllProduct(){
+        return ingredientRepository.save(updatedIngredient);
+    }
+
+
+
+
+    public List<Ingredient> findAllIngredient(){
         return ingredientRepository.findAll();
     }
 
-    public void deleteProductById(Integer id){
-        ingredientRepository.deleteById(id);
+    public void deleteIngredientById(Long id){
+       ingredientRepository.deleteById(id);
     }
 
 

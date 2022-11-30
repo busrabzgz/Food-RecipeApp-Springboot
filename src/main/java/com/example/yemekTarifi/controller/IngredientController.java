@@ -2,37 +2,41 @@ package com.example.yemekTarifi.controller;
 
 
 import com.example.yemekTarifi.entity.Ingredient;
+import com.example.yemekTarifi.entity.Recipe;
 import com.example.yemekTarifi.service.IngredientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api/ingredient")
 public class IngredientController {
 
     private final IngredientService ingredientService;
     public IngredientController(IngredientService ingredientService){
         this.ingredientService = ingredientService;
     }
-    @PostMapping("/save")
+    @PostMapping("/add")
     public ResponseEntity<Ingredient> addProduct(Ingredient ingredient){
-        Ingredient newIngredient = new Ingredient();
-        Ingredient addIngredient = ingredientService.saveProduct(newIngredient);
+        Ingredient addIngredient = ingredientService.addIngredient(ingredient);
         return new ResponseEntity<Ingredient>(addIngredient, HttpStatus.OK);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<Ingredient> updateIngredient(@RequestBody Ingredient ingredient){
+        Ingredient updateIngredient= ingredientService.updateIngredient(ingredient);
+        return new ResponseEntity<Ingredient>(updateIngredient, HttpStatus.OK);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Ingredient>> findAllProduct(){
-        List<Ingredient> findAllIngredient = ingredientService.findAllProduct();
+        List<Ingredient> findAllIngredient = ingredientService.findAllIngredient();
         return  new ResponseEntity<List<Ingredient>>(findAllIngredient,HttpStatus.OK);
     }
     @PostMapping("/delete")
-    public void deleteProductById(Integer id){
-        ingredientService.deleteProductById(id);
+    public void deleteProductById(Long id){
+        ingredientService.deleteIngredientById(id);
     }
 }

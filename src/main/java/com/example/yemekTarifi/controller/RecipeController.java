@@ -25,8 +25,8 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<Recipe> addRecipe(@RequestBody Recipe recipe){
+    @PostMapping("/add")
+    public ResponseEntity<Recipe> addRecipe(@RequestBody Recipe recipe)  {
         Recipe addRecipe= recipeService.addRecipe(recipe);
         return new ResponseEntity<Recipe>(addRecipe, HttpStatus.CREATED);
     }
@@ -51,7 +51,7 @@ public class RecipeController {
      * @param id
      */
     @PostMapping("/delete")
-    public void deleteRecipeById(Integer id){
+    public void deleteRecipeById(Long id){
         recipeService.deleteRecipeById(id);
     }
 

@@ -15,12 +15,12 @@ public class RecipeService {
         this.recipeRepository = recipeRepository;
     }
 
-    public Recipe addRecipe(Recipe recipe){
+    public Recipe addRecipe(Recipe recipe) {
         return recipeRepository.save(recipe);
     }
 
     public Recipe updateRecipe(Recipe recipe){
-        Recipe updatedRecipe= recipeRepository.getById(recipe.getId());
+        Recipe updatedRecipe= recipeRepository.getReferenceById(Math.toIntExact((recipe.getId())));
         updatedRecipe.setName(recipe.getName());
         updatedRecipe.setDescription(recipe.getDescription());
         updatedRecipe.setTime(recipe.getTime());
@@ -31,8 +31,8 @@ public class RecipeService {
     public List<Recipe> findAllFood(){
         return recipeRepository.findAll();
     }
-    public void deleteRecipeById(Integer id){
-        recipeRepository.deleteById(id);
+    public void deleteRecipeById(Long id){
+        recipeRepository.deleteById(Math.toIntExact(id));
     }
 
 }
