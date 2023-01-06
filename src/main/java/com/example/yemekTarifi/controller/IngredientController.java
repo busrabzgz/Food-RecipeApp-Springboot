@@ -19,7 +19,7 @@ public class IngredientController {
         this.ingredientService = ingredientService;
     }
     @PostMapping("/add")
-    public ResponseEntity<Ingredient> addProduct(Ingredient ingredient){
+    public ResponseEntity<Ingredient> addProduct(@RequestBody Ingredient ingredient){
         Ingredient addIngredient = ingredientService.addIngredient(ingredient);
         return new ResponseEntity<Ingredient>(addIngredient, HttpStatus.OK);
     }
