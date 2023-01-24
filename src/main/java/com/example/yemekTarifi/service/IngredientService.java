@@ -25,9 +25,6 @@ public class IngredientService {
         return ingredientRepository.save(updatedIngredient);
     }
 
-
-
-
     public List<Ingredient> findAllIngredient(){
         return ingredientRepository.findAll();
     }
