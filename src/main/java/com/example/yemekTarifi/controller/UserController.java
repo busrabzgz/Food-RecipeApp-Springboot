@@ -13,6 +13,11 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String dashboard(){
-        return "login is succesful";
+        return "here is dashboard! login is succesful";
+    }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return " here is admin page ";
     }
 }
